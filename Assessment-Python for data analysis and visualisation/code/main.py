@@ -6,10 +6,8 @@ import numpy as np
 
 
 """
-This file can be ran on the command line with 3 optional arguments, like so:
-python .\main.py remove
-python .\main.py format
-python .\main.py unique
+This file can be ran on the command line as a single shell command to call an executable Python script specifying necessary argument:
+python .\main.py
 
 The desired function and or output will take place.
 """
@@ -138,10 +136,7 @@ def remove_duplicates():
     print("New file created with duplicates removed")
 
 if __name__ == "__main__":
-    if sys.argv[1] == "remove":
-        remove_duplicates()
-    if sys.argv[1] == "unique":
-        unique_values()
-    if sys.argv[1] == "format":
-        expected_format()
+    remove_duplicates()
+    unique_values()
+    expected_format()
 
