@@ -121,7 +121,7 @@ def expected_format():
     print(np.setdiff1d(Approximate_Social_Grade_EF, Approximate_Social_Grade_RD))
 
 
-# Column Record_Number not included in analysis, as it is a unique number given to each record, so it would not show duplicates
+# Column Record_Number not included in analysis, as it is a unique number given to each record, so if the same response was recorded twice it would still have a unique column Record_Number 
 def remove_duplicates():
     df = pd.read_csv(input_file)
     output_file = "../data/Scotland_teaching_file_1PCT_DUPLICATES_REMOVED.csv" 
