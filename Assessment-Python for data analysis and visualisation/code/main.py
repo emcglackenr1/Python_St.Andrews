@@ -1,46 +1,47 @@
 #!/usr/bin/env python
-import sys
-import argparse
 import pandas as pd
 import numpy as np
 
 
 """
-This file can be ran on the command line as a single shell command to call an executable Python script specifying necessary argument:
-python .\main.py
+This script can be ran on the command line with:
+    python .\main.py 
 
-The desired function and or output will take place.
+The output should:
+    Show unique values.
+    Check values are correct type and values are admissable.
+    Remove duplicates and output a new file.
 """
 
-##importing panda and reading the file 
+# importing panda and reading in the file.
 input_file = "../data/Scotland_teaching_file_1PCT.csv"
 df = pd.read_csv(input_file)
 
-""" Based on this result, here is the output put onto separate lines to be more legible:
-# You can see the data type and that many are objects.
-# Outcome: Type of data and unique values in the dataset are now visible
-# The completes the requirement to:
-# Determine the type of each variable in the dataset
-"""
+# Get list of column names
 def unique_values():
     get_col = list(pd.read_csv(input_file,nrows=1).columns)
     #print(get_col)
+    # List variable types
     unique_values = {col: df[col].unique() for col in get_col}
+    print("==================== UNIQUE VAUES ===================\n")
+    print("Below, you can see the data type and that many are objects.\n")
+    print("Outcome: Type of data and unique values in the dataset are now visible\n")
+    print("This completes the requirement to: Determine the type of each variable in the data set.")
     print(unique_values)
+    print("\n")
 
-"""
- Refining Data Continued 
- Checking if values of variables are admissible and expected format
- From this part of the assignment guidelines: 
 
-    develop a procedure to check that the data match expected format, remove duplicates, and perform further refinement. This procedure should ensure that:
-
-        1. the values of variables are of the expected format (numbers, strings, etc.);
-
-        2. the values of variables are admissible (e.g. are within a given range or are from the list of admissible values);
-"""
 
 def expected_format():
+    print("================= FURTHER DATA REFINING =======================")
+    print("Refining Data Continued\n")
+    print("Checking if values of variables are admissible and expected format\n")
+    print("From this part of the assignment guidelines:\n")
+    print("develop a procedure to check that the data match expected format, remove duplicates, and perform further refinement.\n")
+    print("This procedure should ensure that:\n")
+    print("1. the values of variables are of the expected format (numbers, strings, etc.)\n")
+    print("2. the values of variables are admissible (e.g. are within a given range or are from the list of admissible values);\n")
+    
     # expected format of data
     Record_Number_EF = np.array(list(range(1, 63389)))
     Region_EF = np.array(['S92000003'])
@@ -61,7 +62,7 @@ def expected_format():
     Approximate_Social_Grade_EF = np.array(['1', '2', '3', '4', 'X'])
 
     # Taken from output of unique values
-    ### Converting data to an array so it can be analysed using numpy
+    # Converting data to an array so it can be analysed using numpy
     Record_Number_RD = np.array(list(range(1, 63389)))
     Region_RD = np.array(['S92000003'])
     RESIDENCE_TYPE_RD = np.array(['P', 'C'])
@@ -80,7 +81,7 @@ def expected_format():
     Hours_Worked_Per_Week_RD = np.array(['4', '3', '2', 'X', '1'])
     Approximate_Social_Grade_RD = np.array(['3', '2', '4', 'X', '1'])
 
-    #This code compares the expected format of the data to the real data recieved
+    # This code compares the expected format of the data to the real data recieved
 
     print('Values from dataset that do not match the expected format based on the file Teaching_File_Variable_List(1). Empty square brackets mean the data is the correct format and values')
     print('Record_Number:')
@@ -119,10 +120,10 @@ def expected_format():
     print(np.setdiff1d(Approximate_Social_Grade_EF, Approximate_Social_Grade_RD))
 
 
-# Column Record_Number not included in analysis, as it is a unique number given to each record, so if the same response was recorded twice it would still have a unique column Record_Number 
+# Column Record_Number not included in analysis, as it is a unique number given to each record, so it would not show duplicates
 def remove_duplicates():
     df = pd.read_csv(input_file)
-    output_file = "../data/Scotland_teaching_file_1PCT_DUPLICATES_REMOVED.csv" 
+    output_file = "../data/Scotland_teaching_file_DUPLICATES_REMOVED.csv" 
 
     columns = ["Region", "RESIDENCE_TYPE", "Family_Composition", "sex", "age", \
             "Marital_Status", "student", "Country_Of_Birth", "health", "Ethnic_Group", \
@@ -133,10 +134,10 @@ def remove_duplicates():
 
     dd = pd.DataFrame(deduplicated_data)
     dd.to_csv(output_file, index=False)
-    print("New file created with duplicates removed")
+    print("=======  Scotland_teaching_file_DUPLICATES_REMOVED.csv created with duplicates removed ======")
+
 
 if __name__ == "__main__":
-    remove_duplicates()
-    unique_values()
     expected_format()
-
+    unique_values()
+    remove_duplicates()
